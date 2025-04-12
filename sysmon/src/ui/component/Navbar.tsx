@@ -9,7 +9,7 @@ export const Navbar = () => {
     ];
 
     return (
-        <nav className="flex gap-2 pt-2 justify-evenly">
+        <nav className="flex gap-2 py-2 justify-evenly">
             {route_table.map((route, idx) => (
                 <NavLink
                     key={idx}
