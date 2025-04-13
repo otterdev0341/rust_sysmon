@@ -1,5 +1,6 @@
 import { Chart } from "chart.js";
 import { useEffect } from "react";
+import { SystemCard } from "../element/system_card";
 
 export const System = () => {
 
@@ -32,7 +33,7 @@ export const System = () => {
                 <div className="w-1/2 text-center">
                 <div className="bg-brown-400 h-1/2">
                         <h4 className="pt-4 font-bold">SYSTEM</h4>
-                        
+                        <SystemCard />
                     </div>
                 </div>
             </div>

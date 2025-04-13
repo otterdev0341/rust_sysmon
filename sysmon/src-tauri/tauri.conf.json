@@ -14,7 +14,7 @@
     "windows": [
       {
         "title": "sysmon",
-        "width": 350,
+        "width": 600,
         "height": 500
       }
     ],
