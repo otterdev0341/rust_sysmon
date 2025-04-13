@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { HostInfoDto, ResListDiskDataDto } from "../dto/systsm_dto";
+import { HostInfoDto, RamDataDto, ResListDiskDataDto } from "../dto/systsm_dto";
 
 export class SystemService {
     
@@ -10,6 +10,11 @@ export class SystemService {
 
     async get_disks_info(): Promise<ResListDiskDataDto> {
         let result: ResListDiskDataDto = await invoke("get_disk_data_list");
+        return result
+    }
+
+    async get_ram_info(): Promise<RamDataDto> {
+        let result: RamDataDto = await invoke("get_ram_info");
         return result
     }
 }

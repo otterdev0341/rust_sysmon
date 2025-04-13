@@ -1,4 +1,5 @@
 import { DiskCard } from "../element/disk_card";
+import { RamCard } from "../element/ram_card";
 import { SystemCard } from "../element/system_card";
 
 export const System = () => {
@@ -19,7 +20,7 @@ export const System = () => {
                 <div className="w-1/2 text-center">
                 <div id="graph" className="bg-pink-400 h-[220px]">
                         <h4 className="pt-4 font-bold">RAM</h4>
-                        <canvas id="graph-canvas"></canvas>
+                        <RamCard />
                     </div>
                 </div>
             </div>

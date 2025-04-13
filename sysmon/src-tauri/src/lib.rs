@@ -1,4 +1,4 @@
-use utility::{disk::{DiskUtill, ResListDiskData}, host::{ HostUtil, ResHostInfo}};
+use utility::{disk::{DiskUtill, ResListDiskData}, host::{ HostUtil, ResHostInfo}, ram::{RamUtil, ResRamInfo}};
 
 
 pub mod utility;
@@ -10,7 +10,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             test_clg,
             get_host_info,
-            get_disk_data_list
+            get_disk_data_list,
+            get_ram_info
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -31,5 +32,11 @@ fn get_host_info() -> ResHostInfo {
 #[tauri::command]
 fn get_disk_data_list() -> ResListDiskData {
     let result = DiskUtill::get_disk_data_list();
+    result
+}
+
+#[tauri::command]
+fn get_ram_info() -> ResRamInfo {
+    let result = RamUtil::get_ram_info();
     result
 }

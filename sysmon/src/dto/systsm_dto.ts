@@ -22,3 +22,10 @@ export interface DiskDataDto{
     disk_free_byte: number;
     mount_path: string;
 }
+
+export interface RamDataDto{
+    ram_capacity: number;
+    ram_used: number;
+    swap_capacity: number;
+    swap_used: number;
+}
