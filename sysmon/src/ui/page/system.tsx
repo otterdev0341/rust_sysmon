@@ -1,5 +1,4 @@
-import { Chart } from "chart.js";
-import { useEffect } from "react";
+import { DiskCard } from "../element/disk_card";
 import { SystemCard } from "../element/system_card";
 
 export const System = () => {
@@ -28,7 +27,9 @@ export const System = () => {
                 <div className="w-1/2 text-center">
                     <div className="bg-green-400 h-[220px]">
                         <h4 className="pt-4 font-bold">DISK</h4>
+                        <DiskCard />
                     </div>
+                    
                 </div>
                 <div className="w-1/2 text-center">
                 <div className="bg-brown-400 h-1/2">

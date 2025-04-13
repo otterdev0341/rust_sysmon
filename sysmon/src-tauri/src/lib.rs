@@ -1,4 +1,4 @@
-use utility::host::{ HostUtil, ResHostInfo};
+use utility::{disk::{DiskUtill, ResListDiskData}, host::{ HostUtil, ResHostInfo}};
 
 
 pub mod utility;
@@ -9,7 +9,8 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             test_clg,
-            get_host_info
+            get_host_info,
+            get_disk_data_list
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -24,5 +25,11 @@ fn test_clg() {
 #[tauri::command]
 fn get_host_info() -> ResHostInfo {
     let result = HostUtil::get_host_info();
+    result
+}
+
+#[tauri::command]
+fn get_disk_data_list() -> ResListDiskData {
+    let result = DiskUtill::get_disk_data_list();
     result
 }

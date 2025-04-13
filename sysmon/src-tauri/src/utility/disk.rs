@@ -77,6 +77,7 @@ impl DiskUtill{
         let disks = Self::refreshed_disk();
         let mut result_data = ResListDiskData::default();
         result_data.size = disks.len() as u32;
+        result_data.phycical_drive = Self::get_phycical_disks_amount();
         for (index, _data) in disks.iter().enumerate() {
             let temp_record = Self::get_disk_data(index as u32);
             result_data.data.push(temp_record);
@@ -88,7 +89,7 @@ impl DiskUtill{
 
 
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize)]
 pub struct DiskData {
     pub name: String,
     pub disk_type: String,
@@ -113,9 +114,10 @@ impl Default for DiskData {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize)]
 pub struct ResListDiskData {
     pub size: u32,
+    pub phycical_drive: u32,
     pub data: Vec<DiskData>
 }
 
@@ -123,6 +125,7 @@ impl Default for ResListDiskData {
     fn default() -> Self {
         Self {
             size: 0,
+            phycical_drive: 0,
             data: vec![]
         }
     }
