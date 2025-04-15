@@ -26,6 +26,8 @@ export interface DiskDataDto{
 export interface RamDataDto{
     ram_capacity: number;
     ram_used: number;
-    swap_capacity: number;
+    ram_free: number;
     swap_used: number;
+    swap_capacity: number;
+    swap_free: number;
 }

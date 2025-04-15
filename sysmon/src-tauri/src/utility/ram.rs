@@ -35,6 +35,27 @@ impl RamUtil {
         }   
     }
 
+    fn get_free_ram_gb() -> Option<f64> {
+    
+        // get max ram value
+        let max_ram = match Self::get_total_ram_gb() {
+            Some(data) => data,
+            None => 0.0
+        };
+        // get used ram
+        let used_ram = match Self::get_used_ram_gb() {
+            Some(data) => data,
+            None => 0.0
+        };
+        let result = max_ram - used_ram;
+        if result > 0.0 {
+            Some(result)
+        } else {
+            None
+        }
+
+    }
+
     fn get_swap_size() -> Option<f64> {
         // initial
         let sys = Self::refreshed_system();
@@ -57,6 +78,7 @@ impl RamUtil {
     }
 
     
+
     fn get_swap_free() -> Option<f64> {
         // initial
         let sys = Self::refreshed_system();
@@ -70,21 +92,26 @@ impl RamUtil {
     pub fn get_ram_info() -> ResRamInfo {
         let result = ResRamInfo {
             ram_capacity : Self::get_total_ram_gb().unwrap_or_default(),
+            ram_free: Self::get_free_ram_gb().unwrap_or_default(),
             ram_used: Self::get_used_ram_gb().unwrap_or_default(),
             swap_capacity: Self::get_swap_size().unwrap_or_default(),
+            swap_free: Self::get_swap_free().unwrap_or_default(),
             swap_used: Self::get_swap_used().unwrap_or_default()
+
         };
         result
     }
 }
 
 
-#[derive(serde::Serialize)]
+#[derive(serde::Serialize, Clone, serde::Deserialize)]
 pub struct ResRamInfo{
     pub ram_capacity: f64,
     pub ram_used: f64,
+    pub ram_free: f64,
     pub swap_capacity: f64,
-    pub swap_used: f64
+    pub swap_used: f64,
+    pub swap_free: f64
 }
 
 impl Default for ResRamInfo {
@@ -92,8 +119,10 @@ impl Default for ResRamInfo {
         Self {
             ram_capacity: 0.0,
             ram_used: 0.0,
+            ram_free: 0.0,
             swap_capacity: 0.0,
-            swap_used: 0.0
+            swap_used: 0.0,
+            swap_free: 0.0
         }
     }
 }

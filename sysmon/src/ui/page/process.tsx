@@ -1,10 +1,11 @@
+import { ChartRam } from "../chart/chart_ram"
+
 export const Process = () => {
 
     
     return(
-        <p>
-            this is Process
+        <div>
             
-        </p>
+        </div>
     )
 }
