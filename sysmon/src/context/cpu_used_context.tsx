@@ -40,7 +40,7 @@ export const CpuUsedProvider = ({ children }: { children: ReactNode }) => {
             updatedDeque.pushBack(result);
 
             // Log the updated deque state after the push
-            console.log("Updated Deque:", updatedDeque.getAll());
+            // console.log("Updated Deque:", updatedDeque.getAll());
 
             // Return the updated deque
             return updatedDeque;

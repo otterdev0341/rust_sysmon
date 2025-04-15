@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { RamProvider } from "./context/ram_context";
 import { CpuInfoProvider } from "./context/cpu_info_context";
 import { CpuUsedProvider } from "./context/cpu_used_context";
+import { ProcessProvider } from "./context/process_context";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <RamProvider>
         <CpuInfoProvider>
           <CpuUsedProvider>
-          <App />
+            <ProcessProvider>
+            <App />
+          </ProcessProvider>
         </CpuUsedProvider>
         </CpuInfoProvider>
       </RamProvider>

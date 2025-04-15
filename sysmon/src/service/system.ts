@@ -4,7 +4,7 @@ import { HostInfoDto, RamDataDto, ResCpuInfo, ResCpuUsed, ResListDiskDataDto } f
 export class SystemService {
     
     async get_system_info(): Promise<HostInfoDto>  {
-        let result: HostInfoDto = await invoke("get_host_info")
+        let result: HostInfoDto = await invoke("get_host_info");
         return result
     }
 

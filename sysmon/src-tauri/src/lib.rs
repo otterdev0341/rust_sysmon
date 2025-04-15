@@ -13,12 +13,12 @@ pub fn run() {
     let ram_log = Arc::new(Mutex::new(RamLog::new(60)));
     let cpu_log = Arc::new(Mutex::new(CpuLog::new(100)));
     let cpu_info = Arc::new(Mutex::new(CpuUtill::get_cpu_info()));
-    let process_info = Arc::new(Mutex::new(ProcessLog::new(5)));
+    let process_info = Arc::new(Mutex::new(ProcessLog::new(3)));
     // Clone for background loop
 
     let ram_log_clone = Arc::clone(&ram_log);
     let cpu_log_clone = Arc::clone(&cpu_log);
-    let process_clone = Arc::clone(&process_info);
+    let process_log_clone = Arc::clone(&process_info);
     thread::spawn(move || {
         loop {
             let ram_data = RamUtil::get_ram_info();
@@ -40,11 +40,14 @@ pub fn run() {
     });
     
     thread::spawn(move || {
-        let process_data = ProcessUtill::get_all_process_detail();
-        if let Ok(mut process) = process_clone.lock() {
-            process.add_records(process_data);
+        loop {
+
+            let process_data = ProcessUtill::get_all_process_detail();
+            if let Ok(mut process) = process_log_clone.lock() {
+                process.add_records(process_data);
+            }
+            thread::sleep(Duration::from_secs(1));
         }
-        thread::sleep(Duration::from_secs(2));
     });
 
     tauri::Builder::default()
@@ -115,7 +118,10 @@ fn get_cpu_info(cpu_info: tauri::State<'_, Arc<Mutex<ResCpuInfo>>>) -> ResCpuInf
 fn get_process_info(process_info: tauri::State<'_, Arc<Mutex<ProcessLog>>>) -> ResProcessDetailList {
     let guard = process_info.lock().unwrap();
     match guard.latest() {
-        Some(data) => data.clone(),
+        Some(data) => {
+            // println!("{:?}", data);
+            return data.clone();
+        },
         None => ResProcessDetailList::default()
     }
 }

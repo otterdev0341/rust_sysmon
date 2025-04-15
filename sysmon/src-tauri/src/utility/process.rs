@@ -34,16 +34,23 @@ impl ProcessUtill {
     }
 
     pub fn get_all_process_detail() -> ResProcessDetailList {
-        let sys = Self::refreshed_system();
-        
+        let sys = Self::refreshed_system(); // called only once
+    
         let mut result = ResProcessDetailList::default();
-        for (pid, _process) in sys.processes() {
-            let temp_result = Self::get_process_detail_by_pid(pid.as_u32());
-            result.data.push(temp_result);
+    
+        for (pid, process) in sys.processes() {
+            result.data.push(ProcessDetail {
+                pid: pid.as_u32(),
+                process_name: ConvertHelper::os_str_to_string(process.name()).unwrap_or_default(),
+                cpu_used: process.cpu_usage(),
+                memory_used: process.memory(),
+                disk_read: process.disk_usage().read_bytes,
+                disk_write: process.disk_usage().written_bytes,
+            });
         }
+    
         result.size = result.data.len() as u32;
-        return result
-
+        result
     }
 
     pub fn get_process_detail_by_pid(target_pid: u32) -> ProcessDetail {
@@ -209,3 +216,16 @@ impl ResProcessDetailList {
     }
 }
 
+
+#[cfg(test)]
+pub mod test {
+    use super::ProcessUtill;
+
+
+
+    #[test]
+    fn get_all_process_detail(){
+        let service = ProcessUtill::get_all_process_detail();
+        assert_ne!(service.size,0)
+    }
+}
