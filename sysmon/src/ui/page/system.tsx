@@ -1,3 +1,5 @@
+import CpuUsedChart from "../chart/chart_cpu";
+import { CpuCard } from "../element/cpu_card";
 import { DiskCard } from "../element/disk_card";
 import { RamCard } from "../element/ram_card";
 import { SystemCard } from "../element/system_card";
@@ -12,10 +14,16 @@ export const System = () => {
             <div id="upper" className="flex h-[50%] bg-amber-300 w-[100%] justify-center">
                 <div className="w-1/2 text-center">
                     <div id="graph" className="bg-red-200 h-[220px]">
-                        <h4 className="pt-4 font-bold">CPU</h4>
-                        <canvas id="graph-canvas"></canvas>
-                    </div>
+                        <h4 className="pt-4 font-bold ">CPU</h4>
+                        <div className="">
+                            <CpuCard />
+                        </div>
+                        <div className="">
+                            <CpuUsedChart />
+                        </div>
 
+                    </div>
+                    
                 </div>
                 <div className="w-1/2 text-center">
                 <div id="graph" className="bg-pink-400 h-[220px]">

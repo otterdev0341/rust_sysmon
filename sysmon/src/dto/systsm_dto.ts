@@ -31,3 +31,23 @@ export interface RamDataDto{
     swap_capacity: number;
     swap_free: number;
 }
+
+
+export interface ResCpuInfo {
+    core: number;
+    thread: number;
+}
+// pub struct CpuUsed{
+//     pub cpu_core: u32,
+//     pub cpu_used_percent: f32,
+// }
+export interface CpuUsedDto {
+    cpu_core: number;        // Ensure cpu_core is included
+    cpu_used_percent: number; // Use cpu_used_percent for the CPU usage percentage
+}
+
+export interface ResCpuUsed{
+    data: CpuUsedDto[];
+    length: number;
+}
+

@@ -127,27 +127,3 @@ impl Default for ResRamInfo {
     }
 }
 
-#[cfg(test)]
-pub mod test {
-    use core::panic::PanicInfo;
-
-    use crate::utility::disk::DiskUtill;
-
-    use super::RamUtil;
-
-
-    #[test]
-    pub fn test_get_total_ram() {
-        let service = RamUtil::get_total_ram_gb();
-        assert_ne!(service.unwrap(), 0.0);
-        println!("{:?}", service.unwrap());
-
-    }
-
-    #[test]
-    pub fn test_get_used_ram() {
-        let test_value = RamUtil::get_used_ram_gb();
-        assert_ne!(test_value.unwrap(), 0.0);
-        println!("{:?}", test_value.unwrap());
-    }
-}

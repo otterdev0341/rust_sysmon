@@ -1,4 +1,5 @@
-import { ChartRam } from "../chart/chart_ram"
+import CpuUsedChart from "../chart/chart_cpu"
+
 
 export const Process = () => {
 

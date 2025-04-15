@@ -147,7 +147,7 @@ pub struct ProcessDetail {
 
 impl ProcessDetail {
     fn get_percent_cpu_used(&self) -> f32 {
-        let cpu_core = CpuUtill::get_cpu_core() as f32;
+        let cpu_core = CpuUtill::get_cpu_info().core as f32;
         let percent = self.cpu_used / cpu_core;
         percent
 

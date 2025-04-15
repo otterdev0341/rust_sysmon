@@ -12,7 +12,7 @@ function App() {
 
 
   return (
-    <div className="container mx-auto bg-gray-700">
+    <div className="container mx-auto ">
       <Navbar />
       <Routes>
         <Route path="/" element={<System />}></Route>
