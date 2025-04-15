@@ -135,7 +135,7 @@ impl ProcessUtill {
 }
 
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, serde::Serialize)]
 pub struct ProcessDetail {
     pub pid: u32,
     pub process_name: String,
@@ -168,7 +168,7 @@ impl Default for ProcessDetail {
 }
 
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize, Clone)]
 pub struct ResProcessDetailList {
     size: u32,
     data: Vec<ProcessDetail>

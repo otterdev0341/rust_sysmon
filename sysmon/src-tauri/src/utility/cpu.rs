@@ -1,5 +1,5 @@
-use std::{thread, time::Duration};
-use sysinfo::{System};
+use std::thread;
+use sysinfo::System;
 
 pub struct CpuUtill {}
 
