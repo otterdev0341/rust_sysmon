@@ -1,10 +1,7 @@
 import { useMemo } from "react";
 import { useProcess } from "../../context/process_context";
-import { ResProcessDetailListDto } from "../../dto/process_dto";
-import { ProcessFilter } from "./process_filter";
 import { KillButton } from "../component/kill_button";
 import { useFilterProcess } from "../../context/process_filter_context";
-import { Deque } from "../../type/deque";
 
 export const ProcessDesplay = () => {
     
@@ -27,7 +24,7 @@ export const ProcessDesplay = () => {
     return(
         <div className="overflow-x-auto p-4">
             <table className="min-w-full table-auto ">
-                <thead className="bg-gray-400">
+                <thead className="">
                     <tr>
                         <td className="text-sm">PID</td>
                         <td className="text-sm text-center">Process Name</td>

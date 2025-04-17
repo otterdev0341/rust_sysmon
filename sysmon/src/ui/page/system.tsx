@@ -10,7 +10,7 @@ export const System = () => {
 
 
     return(
-        <div className="container flex flex-col w-full h-full bg-gray-400">
+        <div className="container flex flex-col w-full h-full ">
             <div id="upper" className="flex w-[100%] justify-center">
                 <div className="w-1/2 text-center">
                     <div id="graph" className="h-[220px]">

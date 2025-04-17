@@ -7,7 +7,7 @@ export const Process = () => {
     
     
     return(
-        <div className="flex flex-col bg-gray-400">
+        <div className="flex flex-col">
             <ProcessFilter />
             <ProcessDesplay />
         </div>

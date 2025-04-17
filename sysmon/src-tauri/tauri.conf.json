@@ -15,7 +15,14 @@
       {
         "title": "sysmon",
         "width": 600,
-        "height": 520
+        "height": 520,
+        "resizable": true,
+        "fullscreen": false,
+        "visible": true,
+        "alwaysOnTop": false,
+        "decorations": true,
+        "transparent": false,
+        "devtools": false  
         
       }
     ],
@@ -24,6 +31,22 @@
     }
   },
   "bundle": {
+    "linux": {
+      "appimage": {
+        "bundleMediaFramework": false,
+        "files": {}
+      },
+      "deb": {
+        "files": {
+          
+        }
+      },
+      "rpm": {
+        "epoch": 0,
+        "files": {},
+        "release": "1"
+      }
+    },
     "active": true,
     "targets": "all",
     "icon": [
@@ -33,5 +56,6 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+    
   }
 }

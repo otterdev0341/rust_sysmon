@@ -4,7 +4,7 @@ import { useFilterProcess } from "../../context/process_filter_context";
 export const ProcessFilter = () => {
 
     const [searchKeyword, setSearchKeyword] = useState("");
-    const {filter_data, set_filter_data} = useFilterProcess();
+    const { set_filter_data} = useFilterProcess();
     
     useEffect(() => {
         set_filter_data({keyword: searchKeyword})
