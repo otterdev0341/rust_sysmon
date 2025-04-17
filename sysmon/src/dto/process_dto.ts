@@ -12,3 +12,8 @@ export interface ResProcessDetailListDto {
     size: number;
     data: ResProcessDetailDto[];
 }
+
+export interface ProcessFilterData {
+    keyword: string;
+    
+}

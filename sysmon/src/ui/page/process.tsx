@@ -1,14 +1,15 @@
-import { useProcess } from "../../context/process_context"
-import CpuUsedChart from "../chart/chart_cpu"
+import { ProcessDesplay } from "../element/process_display";
+import { ProcessFilter } from "../element/process_filter";
 
 
 export const Process = () => {
 
-    const {processDeque} = useProcess();
+    
     
     return(
-        <div>
-            
+        <div className="flex flex-col">
+            <ProcessFilter />
+            <ProcessDesplay />
         </div>
     )
 }

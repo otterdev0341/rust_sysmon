@@ -7,5 +7,11 @@ export class ProcessService {
         let result: ResProcessDetailListDto = await invoke("get_process_info");
         return result
     }
+
+    async kill_process_by_id(process_id: number): Promise<boolean> {
+        let kill_result: boolean = await invoke("kill_process_by_id",{process_id: process_id});
+        return kill_result
+
+    }
     
 }

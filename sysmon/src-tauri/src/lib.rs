@@ -40,13 +40,9 @@ pub fn run() {
     });
     
     thread::spawn(move || {
-        loop {
-
-            let process_data = ProcessUtill::get_all_process_detail();
-            if let Ok(mut process) = process_log_clone.lock() {
-                process.add_records(process_data);
-            }
-            thread::sleep(Duration::from_secs(1));
+        let process_data = ProcessUtill::get_all_process_detail();
+        if let Ok(mut process) = process_log_clone.lock() {
+            process.add_records(process_data);
         }
     });
 
@@ -63,7 +59,8 @@ pub fn run() {
             get_ram_info,
             get_cpu_used,
             get_cpu_info,
-            get_process_info
+            get_process_info,
+            kill_process_by_id
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -127,4 +124,12 @@ fn get_process_info(process_info: tauri::State<'_, Arc<Mutex<ProcessLog>>>) -> R
 }
 
 
-
+#[tauri::command]
+fn kill_process_by_id(process_id: u32) -> bool {
+    let kill_operation = ProcessUtill::kill_process_by_pid(process_id);
+    let kill_result = match kill_operation {
+        Ok(_) => true,
+        Err(_) => false
+    };
+    kill_result
+}

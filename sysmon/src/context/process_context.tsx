@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { ResProcessDetailListDto } from "../dto/process_dto";
+import { ResProcessDetailDto, ResProcessDetailListDto } from "../dto/process_dto";
 import { Deque } from "../type/deque";
 import { ProcessService } from "../service/process";
 
@@ -19,23 +19,18 @@ export const ProcessProvider = ({ children }: { children: ReactNode}) => {
 
     useEffect(() => {
         const service = new ProcessService();
-        const interval = setInterval(async () => {
+            const fetchData = async () => {
             try{
                 const result: ResProcessDetailListDto = await service.get_process_info();
-                setProcessDeque((prevDeque) => {
-                    const updateDeque = new Deque<ResProcessDetailListDto>(prevDeque.maxSize);
-                    prevDeque.getAll().forEach((item) => updateDeque.pushBack(item));
-                    updateDeque.pushBack(result)
-                    console.log("Deque updated:", updateDeque.getAll());
-                    return updateDeque;
-                });
+                const newDeque = new Deque<ResProcessDetailListDto>(defaultData.maxSize);
+                newDeque.pushBack(result)
+                setProcessDeque(newDeque);
+               
             } catch(err) {
                 console.error("Fail to fetch process info", err);
             }
-        }, 2000);
-        
-        return () => clearInterval(interval);
-
+        }
+        fetchData();
     },[])
 
     return(
