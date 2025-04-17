@@ -13,6 +13,10 @@ A lightweight, cross-platform system monitor built with **Tauri**, **Rust**, and
   - ⚡ Vite (frontend bundler)
   - 🪟 Tauri (for desktop shell)
 
+![sysmon UI](docs/p1.png)
+![sysmon UI](docs/p2.png)
+![sysmon UI](docs/p3.png)
+
 ## 📦 Installation
 
 > Make sure you have Rust, Node.js, and Tauri CLI installed.
