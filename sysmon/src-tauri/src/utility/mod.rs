@@ -6,3 +6,4 @@ pub mod disk;
 pub mod process;
 pub mod network;
 pub mod port;
+pub mod network_traffic;

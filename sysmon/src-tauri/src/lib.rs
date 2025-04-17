@@ -1,7 +1,7 @@
 use std::{sync::{Arc, Mutex}, thread, time::Duration};
 
-use store::{cpu_log::CpuLog, process_log::ProcessLog, ram_log::RamLog};
-use utility::{cpu::{CpuUtill, ResCpuInfo, ResCpuUsed}, disk::{DiskUtill, ResListDiskData}, host::{ HostUtil, ResHostInfo}, process::{ProcessUtill, ResProcessDetailList}, ram::{RamUtil, ResRamInfo}};
+use store::{cpu_log::CpuLog, network_traffic_log::NetworkTrafficLog, process_log::ProcessLog, ram_log::RamLog};
+use utility::{cpu::{CpuUtill, ResCpuInfo, ResCpuUsed}, disk::{DiskUtill, ResListDiskData}, host::{ HostUtil, ResHostInfo}, network_traffic::{NetworkTrafficUtill, ResInterfaceTraffic}, port::{PortUtill, ResPortList}, process::{ProcessUtill, ResProcessDetailList}, ram::{RamUtil, ResRamInfo}};
 
 
 pub mod utility;
@@ -14,11 +14,13 @@ pub fn run() {
     let cpu_log = Arc::new(Mutex::new(CpuLog::new(100)));
     let cpu_info = Arc::new(Mutex::new(CpuUtill::get_cpu_info()));
     let process_info = Arc::new(Mutex::new(ProcessLog::new(3)));
+    let network_traffic_log = Arc::new(Mutex::new(NetworkTrafficLog::new(100)));
     // Clone for background loop
 
     let ram_log_clone = Arc::clone(&ram_log);
     let cpu_log_clone = Arc::clone(&cpu_log);
     let process_log_clone = Arc::clone(&process_info);
+    let network_traffic_log_clone = Arc::clone(&network_traffic_log);
     thread::spawn(move || {
         loop {
             let ram_data = RamUtil::get_ram_info();
@@ -46,11 +48,24 @@ pub fn run() {
         }
     });
 
+    thread::spawn(move || {
+        loop {
+            let traffic_data = NetworkTrafficUtill::get_interface_traffic();
+            if let Ok(mut log) = network_traffic_log_clone.lock() {
+                log.add_records(traffic_data);
+            }
+            thread::sleep(Duration::from_secs(2));
+        }
+    });
+
+    
+
     tauri::Builder::default()
         .manage(ram_log)
         .manage(cpu_log)
         .manage(cpu_info)
         .manage(process_info)
+        .manage(network_traffic_log)
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             test_clg,
@@ -60,7 +75,9 @@ pub fn run() {
             get_cpu_used,
             get_cpu_info,
             get_process_info,
-            kill_process_by_id
+            kill_process_by_id,
+            get_allow_port_list,
+            get_network_traffic
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -132,4 +149,21 @@ fn kill_process_by_id(process_id: u32) -> bool {
         Err(_) => false
     };
     kill_result
+}
+
+#[tauri::command]
+fn get_allow_port_list() -> ResPortList {
+    let result = PortUtill::get_port_list();
+    result
+}
+
+#[tauri::command]
+fn get_network_traffic(data: tauri::State<'_, Arc<Mutex<NetworkTrafficLog>>>) -> ResInterfaceTraffic {
+    let guard = data.lock().unwrap();
+    match guard.latest() {
+        Some(data) => {
+            return data.clone()
+        },
+        None => ResInterfaceTraffic::default()
+    }
 }
