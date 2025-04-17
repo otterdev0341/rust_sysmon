@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { ResProcessDetailDto, ResProcessDetailListDto } from "../dto/process_dto";
+import { ResProcessDetailListDto } from "../dto/process_dto";
 import { Deque } from "../type/deque";
 import { ProcessService } from "../service/process";
 

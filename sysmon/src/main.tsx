@@ -7,6 +7,8 @@ import { CpuInfoProvider } from "./context/cpu_info_context";
 import { CpuUsedProvider } from "./context/cpu_used_context";
 import { ProcessProvider } from "./context/process_context";
 import { ProcessFilterProvider } from "./context/process_filter_context";
+import { PortListProvider } from "./context/port_context";
+import { InterfaceTrafficProvider } from "./context/network_traffic_context";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -16,7 +18,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <CpuUsedProvider>
             <ProcessProvider>
               <ProcessFilterProvider>
-              <App />
+                <PortListProvider>
+                  <InterfaceTrafficProvider>
+                  <App />
+                </InterfaceTrafficProvider>
+              </PortListProvider>
             </ProcessFilterProvider>
           </ProcessProvider>
         </CpuUsedProvider>

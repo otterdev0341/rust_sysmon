@@ -27,7 +27,7 @@ export const CpuInfoProvider = ({children} : {children: ReactNode}) => {
                 console.error("Failed to fetch Cpu Info", error);
             }
         }
-        fetchData()
+        fetchData();
     },[])
 
     return(
