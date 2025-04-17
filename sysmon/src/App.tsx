@@ -1,6 +1,6 @@
 
 import { Route, Routes } from "react-router-dom";
-import { invoke } from "@tauri-apps/api/core";
+
 import "./App.css";
 import { System } from "./ui/page/system";
 import { Process } from "./ui/page/process";
@@ -12,7 +12,7 @@ function App() {
 
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto h-screen w-full ">
       <Navbar />
       <Routes>
         <Route path="/" element={<System />}></Route>
